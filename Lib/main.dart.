@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(VozZapApp());
+
+class VozZapApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: TelaRadio(),
+    );
+  }
+}
+
+class TelaRadio extends StatefulWidget {
+  @override
+  _TelaRadioState createState() => _TelaRadioState();
+}
+
+class _TelaRadioState extends State<TelaRadio> {
+  bool pressionado = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF075E54),
+      appBar: AppBar(
+        title: const Text("VOZ/ZAP"),
+        backgroundColor: const Color(0xFF128C7E),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              pressionado ? Icons.settings_input_antenna : Icons.mic_none,
+              size: 100,
+              color: Colors.white,
+            ),
+            const SizedBox(height: 50),
+            GestureDetector(
+              onTapDown: (_) => setState(() => pressionado = true),
+              onTapUp: (_) => setState(() => pressionado = false),
+              child: Container(
+                height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                  color: pressionado ? Colors.red : Colors.green,
+                  shape: BoxShape.circle,
+                  boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 10)],
+                ),
+                child: const Icon(Icons.mic, color: Colors.white, size: 50),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              pressionado ? "TRANSMITINDO..." : "SEGURE PARA FALAR",
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
